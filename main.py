@@ -11,7 +11,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI(title="Clarity AI Backend")
+from fastapi.middleware.cors import CORSMiddleware
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # يسمح باستقبال الطلبات من أي موقع (مثل GitHub)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # إعداد الاتصال بقاعدة البيانات و Gemini
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_KEY")
